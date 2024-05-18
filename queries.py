@@ -33,6 +33,8 @@ try:
 except PyMongoError:
     print("insert Daniel and Frank failed")
 
+# index = collection.create_index("email_address")
+
 search_query = {"email_address": "bob@gmail.com"}
 # collection.find_one(search_query) retrieves the first result only
 # collection.distinct("name") retrieves all distinct names
@@ -45,6 +47,8 @@ print(dumps(customer))
 # use "field" in customer to see if a field exists
 print(customer["name"])
 print(customer["email_address"])
+
+# collection.drop_index(index)
 
 search_query = {"email_address": "alice@outlook.com"}
 updated_field = {"email_address": "alice@gmail.com"}

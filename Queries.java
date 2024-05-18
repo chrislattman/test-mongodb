@@ -9,6 +9,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+// import com.mongodb.client.model.Indexes;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
@@ -60,6 +61,10 @@ public class Queries {
             System.out.println("insert Daniel and Frank failed");
         }
 
+        // To create an index on the email_address field (for faster queries,
+        // useful for unstructured data):
+        // String index = collection.createIndex(Indexes.ascending("email_address"));
+
         Document searchQuery = new Document();
         searchQuery.put("email_address", "bob@gmail.com");
         // collection.find(searchQuery).first() retrieves the first result only
@@ -73,6 +78,9 @@ public class Queries {
         // use customer.containsKey("field") to see if a field exists
         System.out.println(customer.getString("name"));
         System.out.println(customer.getString("email_address"));
+
+        // To delete the index:
+        // collection.dropIndex(index);
 
         searchQuery = new Document();
         searchQuery.put("email_address", "alice@outlook.com");

@@ -49,6 +49,9 @@ func main() {
 		fmt.Println("insert Daniel and Frank failed")
 	}
 
+	// indexModel := mongo.IndexModel{Keys: bson.D{{Key: "email_address", Value: 1}}}
+	// index, _ := collection.Indexes().CreateOne(context.TODO(), indexModel)
+
 	searchQuery := bson.D{{Key: "email_address", Value: "bob@gmail.com"}}
 	var customer bson.M
 	// collection.FindOne(context.TODO(), searchQuery).Decode(&customer)
@@ -65,6 +68,8 @@ func main() {
 	// use _, hasField := customer["field"] to see if a field exists (hasField is a bool)
 	fmt.Println(customer["name"])
 	fmt.Println(customer["email_address"])
+
+	// collection.Indexes().DropOne(context.TODO(), index)
 
 	searchQuery = bson.D{{Key: "email_address", Value: "alice@outlook.com"}}
 	updatedField := bson.D{{Key: "email_address", Value: "alice@gmail.com"}}

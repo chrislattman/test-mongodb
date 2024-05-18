@@ -36,6 +36,8 @@ async function run() {
             console.log("insert Daniel and Frank failed");
         }
 
+        // const index = await collection.createIndex("email_address");
+
         let searchQuery = {email_address: "bob@gmail.com"};
         // await collection.findOne(searchQuery) retrieves the first result only
         // await collection.distinct("name") retrieves all distinct names
@@ -48,6 +50,8 @@ async function run() {
         // use customer.hasOwnProperty("field") to see if a field exists
         console.log(customer.name);
         console.log(customer.email_address);
+
+        // await collection.dropIndex(index);
 
         searchQuery = {email_address: "alice@outlook.com"};
         const updatedField = {email_address: "alice@gmail.com"};

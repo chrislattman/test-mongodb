@@ -12,3 +12,5 @@ While SQL RDBMSes and MongoDB both have databases, RDBMS databases store _tables
 
 - MongoDB is great if your data is unstructured (technically, it follows the [BSON](https://www.mongodb.com/docs/manual/reference/bson-types/) format)
 - However, if you know that your data is going to follow a certain structure, use SQL as it's faster and more optimized
+
+> The insertMany function calls in these examples are _not_ atomic, read more [here](https://www.mongodb.com/docs/manual/core/write-operations-atomicity/)
