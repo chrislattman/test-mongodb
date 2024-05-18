@@ -9,13 +9,32 @@ async function run() {
         const collection = database.collection("customers");
 
         let document = {name: "Charlie", email_address: "charlie@gmail.com"};
-        await collection.insertOne(document);
+        let res = await collection.insertOne(document);
+        if (res.insertedId === null) {
+            console.log("insert Charlie failed");
+        }
 
         document = {name: "Bob", email_address: "bob@gmail.com"};
-        await collection.insertOne(document);
+        res = await collection.insertOne(document);
+        if (res.insertedId === null) {
+            console.log("insert Bob failed");
+        }
 
         document = {name: "Alice", email_address: "alice@outlook.com"};
-        await collection.insertOne(document);
+        res = await collection.insertOne(document);
+        if (res.insertedId === null) {
+            console.log("insert Alice failed");
+        }
+
+        const data = [
+            {name: "Daniel", email_address: "daniel@gmail.com"},
+            {name: "Frank", email_address: "frank@gmail.com"},
+        ];
+        try {
+            await collection.insertMany(data);
+        } catch {
+            console.log("insert Daniel and Frank failed");
+        }
 
         let searchQuery = {email_address: "bob@gmail.com"};
         // await collection.findOne(searchQuery) retrieves the first result only
@@ -33,10 +52,16 @@ async function run() {
         searchQuery = {email_address: "alice@outlook.com"};
         const updatedField = {email_address: "alice@gmail.com"};
         const updater = {$set: updatedField};
-        await collection.updateMany(searchQuery, updater);
+        const updated = await collection.updateMany(searchQuery, updater);
+        if (updated.modifiedCount != 1) {
+            console.log("update Alice failed");
+        }
 
         searchQuery = {email_address: "charlie@gmail.com"};
-        await collection.deleteMany(searchQuery);
+        const deleted = await collection.deleteMany(searchQuery);
+        if (deleted.deletedCount != 1) {
+            console.log("delete Charlie failed");
+        }
 
         // use "descending" to sort in reverse order
         cursor = collection.find().sort("name", "ascending");

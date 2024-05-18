@@ -1,13 +1,19 @@
-import org.bson.Document;
+import java.util.ArrayList;
 
 // import static com.mongodb.client.model.Filters.regex;
 import static com.mongodb.client.model.Sorts.ascending;
 
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
+
+import org.bson.Document;
 
 public class Queries {
     public static void main(String[] args) {
@@ -19,17 +25,40 @@ public class Queries {
         Document document = new Document();
         document.put("name", "Charlie");
         document.put("email_address", "charlie@gmail.com");
-        collection.insertOne(document);
+        InsertOneResult res = collection.insertOne(document);
+        if (res.getInsertedId() == null) {
+            System.out.println("insert Charlie failed");
+        }
 
         document = new Document();
         document.put("name", "Bob");
         document.put("email_address", "bob@gmail.com");
-        collection.insertOne(document);
+        res = collection.insertOne(document);
+        if (res.getInsertedId() == null) {
+            System.out.println("insert Bob failed");
+        }
 
         document = new Document();
         document.put("name", "Alice");
         document.put("email_address", "alice@outlook.com");
-        collection.insertOne(document);
+        res = collection.insertOne(document);
+        if (res.getInsertedId() == null) {
+            System.out.println("insert Alice failed");
+        }
+
+        String[][] data = {{"Daniel", "daniel@gmail.com"}, {"Frank", "frank@gmail.com"}};
+        ArrayList<Document> documentList = new ArrayList<>();
+        for (int i = 0; i < data.length; i++) {
+            Document person = new Document();
+            person.put("name", data[i][0]);
+            person.put("email_address", data[i][1]);
+            documentList.add(person);
+        }
+        try {
+            collection.insertMany(documentList);
+        } catch (MongoException e) {
+            System.out.println("insert Daniel and Frank failed");
+        }
 
         Document searchQuery = new Document();
         searchQuery.put("email_address", "bob@gmail.com");
@@ -51,11 +80,17 @@ public class Queries {
         updatedField.put("email_address", "alice@gmail.com");
         Document updater = new Document();
         updater.put("$set", updatedField);
-        collection.updateMany(searchQuery, updater);
+        UpdateResult updated = collection.updateMany(searchQuery, updater);
+        if (updated.getModifiedCount() != 1) {
+            System.out.println("update Alice failed");
+        }
 
         searchQuery = new Document();
         searchQuery.put("email_address", "charlie@gmail.com");
-        collection.deleteMany(searchQuery);
+        DeleteResult deleted = collection.deleteMany(searchQuery);
+        if (deleted.getDeletedCount() != 1) {
+            System.out.println("delete Charlie failed");
+        }
 
         // use descending("name") to sort in reverse order
         cursor = collection.find().sort(ascending("name")).cursor();
