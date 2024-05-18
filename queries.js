@@ -36,6 +36,8 @@ async function run() {
             console.log("insert Daniel and Frank failed");
         }
 
+        // To create an index on the email_address field (for faster queries,
+        // useful for unstructured data):
         // const index = await collection.createIndex("email_address");
 
         let searchQuery = {email_address: "bob@gmail.com"};
@@ -51,6 +53,7 @@ async function run() {
         console.log(customer.name);
         console.log(customer.email_address);
 
+        // To delete the index:
         // await collection.dropIndex(index);
 
         searchQuery = {email_address: "alice@outlook.com"};

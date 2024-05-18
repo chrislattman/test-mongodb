@@ -33,6 +33,8 @@ try:
 except PyMongoError:
     print("insert Daniel and Frank failed")
 
+# To create an index on the email_address field (for faster queries, useful for
+# unstructured data):
 # index = collection.create_index("email_address")
 
 search_query = {"email_address": "bob@gmail.com"}
@@ -48,6 +50,7 @@ print(dumps(customer))
 print(customer["name"])
 print(customer["email_address"])
 
+# To delete the index:
 # collection.drop_index(index)
 
 search_query = {"email_address": "alice@outlook.com"}

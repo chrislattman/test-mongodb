@@ -49,6 +49,8 @@ func main() {
 		fmt.Println("insert Daniel and Frank failed")
 	}
 
+	// To create an index on the email_address field (for faster queries, useful
+	// for unstructured data):
 	// indexModel := mongo.IndexModel{Keys: bson.D{{Key: "email_address", Value: 1}}}
 	// index, _ := collection.Indexes().CreateOne(context.TODO(), indexModel)
 
@@ -69,6 +71,7 @@ func main() {
 	fmt.Println(customer["name"])
 	fmt.Println(customer["email_address"])
 
+	// To delete the index:
 	// collection.Indexes().DropOne(context.TODO(), index)
 
 	searchQuery = bson.D{{Key: "email_address", Value: "alice@outlook.com"}}
