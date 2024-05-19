@@ -6,6 +6,11 @@ One time only: run `docker pull mongo` to download the MongoDB Docker image.
 
 Use the provided Makefile to run the examples.
 
+- To view the contents of this database from the command line, run `docker exec -it mongodb mongosh`
+    - In the mongosh shell run `use mydb` and then run your commands as `db.customers.<command>`
+- To view the contents of this database in a GUI, use MongoDB Compass
+- To view the contents of this database in a web browser, use [mongo-express](https://github.com/mongo-express/mongo-express)
+
 ## Differences with SQL
 
 While SQL RDBMSes and MongoDB both have databases, RDBMS databases store _tables_ that contains _rows_ of _column_ data, whereas MongoDB databases store _collections_ that contains _documents_ of _field_ data. RDBMS rows have a primary key that uniquely identifies them, whereas MongoDB documents have a `_id` field that uniquely identifies them.
