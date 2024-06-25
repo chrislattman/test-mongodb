@@ -6,6 +6,7 @@ One time only: run `docker pull mongo` to download the MongoDB Docker image.
 
 Use the provided Makefile to run the examples.
 
+- While MongoDB is written in C++, there is a C driver available
 - To view the contents of this database from the command line, run `docker exec -it mongodb mongosh`
     - In the mongosh shell run `use mydb` and then run your commands as `db.customers.<command>`
 - To view the contents of this database in a GUI, use MongoDB Compass
